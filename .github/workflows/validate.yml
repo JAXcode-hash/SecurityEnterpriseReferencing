@@ -1,0 +1,23 @@
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r requirements.txt
+      - run: python tools/validate.py
+      - name: Index must be up to date
+        run: |
+          python tools/build_index.py
+          git diff --exit-code index/ || (echo "Run: python tools/build_index.py" && exit 1)
+      - name: Smoke-test resolver on example designs
+        run: |
+          for p in designs/examples/*/design-profile.yaml; do
+            python tools/resolve_context.py --profile "$p" --format paths > /dev/null
+          done

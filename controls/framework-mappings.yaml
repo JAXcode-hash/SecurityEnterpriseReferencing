@@ -1,0 +1,25 @@
+# External control framework references used by standards (`controls:` field).
+# Kept as a lookup, not loaded into agent context unless --with-controls is set.
+type: controls
+controls:
+  CTL-NIST-AC-2:  {framework: NIST 800-53 r5, title: Account Management}
+  CTL-NIST-AC-6:  {framework: NIST 800-53 r5, title: Least Privilege}
+  CTL-NIST-AU-2:  {framework: NIST 800-53 r5, title: Event Logging}
+  CTL-NIST-AU-6:  {framework: NIST 800-53 r5, title: Audit Record Review, Analysis, and Reporting}
+  CTL-NIST-IA-2:  {framework: NIST 800-53 r5, title: Identification and Authentication (Organizational Users)}
+  CTL-NIST-IA-5:  {framework: NIST 800-53 r5, title: Authenticator Management}
+  CTL-NIST-IA-9:  {framework: NIST 800-53 r5, title: Service Identification and Authentication}
+  CTL-NIST-SC-7:  {framework: NIST 800-53 r5, title: Boundary Protection}
+  CTL-NIST-SC-8:  {framework: NIST 800-53 r5, title: Transmission Confidentiality and Integrity}
+  CTL-NIST-SC-28: {framework: NIST 800-53 r5, title: Protection of Information at Rest}
+  CTL-NIST-SI-4:  {framework: NIST 800-53 r5, title: System Monitoring}
+  CTL-ISO-A.5.16: {framework: ISO 27001:2022, title: Identity management}
+  CTL-ISO-A.5.17: {framework: ISO 27001:2022, title: Authentication information}
+  CTL-ISO-A.8.2:  {framework: ISO 27001:2022, title: Privileged access rights}
+  CTL-ISO-A.8.11: {framework: ISO 27001:2022, title: Data masking}
+  CTL-ISO-A.8.15: {framework: ISO 27001:2022, title: Logging}
+  CTL-ISO-A.8.20: {framework: ISO 27001:2022, title: Networks security}
+  CTL-ISO-A.8.24: {framework: ISO 27001:2022, title: Use of cryptography}
+  CTL-PCI-3.5:    {framework: PCI DSS v4.0, title: Primary account number is secured wherever it is stored}
+  CTL-NIST-AI-RMF-MAP-1: {framework: NIST AI RMF 1.0, title: Context is established and understood}
+  CTL-ISO-42001-A.6:     {framework: ISO/IEC 42001, title: AI system life cycle}

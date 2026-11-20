@@ -1,0 +1,15 @@
+name: payments-api-v2
+owner: payments-platform
+status: approved
+review_tier: T3
+review_record: ASR-2026-001
+profile:
+  cloud: [aws]
+  hosting: [kubernetes]
+  exposure: [internet-facing, partner]
+  data_classification: restricted
+  data_types: [pci, pii]
+  components: [api, database, batch]
+  integrations: [enterprise-idp, siem, kms, secrets-manager, waf, api-gateway]
+include: []
+exclude: []

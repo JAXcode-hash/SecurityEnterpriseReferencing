@@ -1,0 +1,671 @@
+[
+  {
+    "id": "CHK-AI",
+    "type": "checklist",
+    "title": "AI System Review Checklist",
+    "status": "draft",
+    "path": "architecture-reviews/checklists/CHK-AI.md",
+    "summary": "Reviewer questions for LLM / ML systems.",
+    "applies_to": {
+      "components": [
+        "ai-ml"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 71
+  },
+  {
+    "id": "CHK-DATA",
+    "type": "checklist",
+    "title": "Sensitive Data Review Checklist",
+    "status": "approved",
+    "path": "architecture-reviews/checklists/CHK-DATA.md",
+    "summary": "Reviewer questions for confidential and restricted data.",
+    "applies_to": {
+      "data_classification": [
+        "confidential"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 76
+  },
+  {
+    "id": "CHK-IAM",
+    "type": "checklist",
+    "title": "Identity & Access Review Checklist",
+    "status": "approved",
+    "path": "architecture-reviews/checklists/CHK-IAM.md",
+    "summary": "Reviewer questions for workload and human identity.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 86
+  },
+  {
+    "id": "CHK-NET",
+    "type": "checklist",
+    "title": "Internet / Partner Exposure Review Checklist",
+    "status": "approved",
+    "path": "architecture-reviews/checklists/CHK-NET.md",
+    "summary": "Reviewer questions for externally exposed services.",
+    "applies_to": {
+      "exposure": [
+        "internet-facing",
+        "partner"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 67
+  },
+  {
+    "id": "CORE-003",
+    "type": "core",
+    "title": "Security Architecture Review Process",
+    "status": "approved",
+    "path": "architecture-reviews/process.md",
+    "summary": "Review tiers by classification/exposure, required artefacts, outcomes (Approved / Approved-with-conditions / Rejected) and where records live.",
+    "applies_to": {},
+    "load_always": true,
+    "refs": {},
+    "est_tokens": 164
+  },
+  {
+    "id": "ASR-2026-001",
+    "type": "review-record",
+    "title": "Review \u2014 Payments API v2",
+    "status": "approved-with-conditions",
+    "path": "architecture-reviews/records/ASR-2026-001-payments-api.md",
+    "summary": "Tier 3 review of Payments API v2. Approved with 2 conditions (CMK rollout, partner mTLS) \u2014 EXC-2026-001 granted for legacy batch key.",
+    "applies_to": {
+      "components": [
+        "api"
+      ],
+      "data_types": [
+        "pci"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 105
+  },
+  {
+    "id": "CORE-002",
+    "type": "core",
+    "title": "Glossary and ID Conventions",
+    "status": "approved",
+    "path": "core/glossary.md",
+    "summary": "ID formats used across the repo so agents can trace requirements, controls, patterns and guardrails.",
+    "applies_to": {},
+    "load_always": true,
+    "refs": {},
+    "est_tokens": 218
+  },
+  {
+    "id": "CORE-001",
+    "type": "core",
+    "title": "Enterprise Security Principles",
+    "status": "approved",
+    "path": "core/security-principles.md",
+    "summary": "Eight non-negotiable principles every design must demonstrably satisfy: zero trust, least privilege, secure by default, defence in depth, encrypt everywhere, observable by design, automate controls, explicit risk ownership.",
+    "applies_to": {},
+    "load_always": true,
+    "refs": {},
+    "est_tokens": 338
+  },
+  {
+    "id": "SDR-001",
+    "type": "decision",
+    "title": "Use service mesh mTLS for Kubernetes east-west traffic",
+    "status": "accepted",
+    "path": "decisions/SDR-001-mesh-mtls.md",
+    "summary": "Mesh-issued SPIFFE identities with mTLS STRICT are the standard for in-cluster service-to-service auth; app-level JWT only as an addition.",
+    "applies_to": {
+      "hosting": [
+        "kubernetes"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 66
+  },
+  {
+    "id": "EXC-2026-001",
+    "type": "exception",
+    "title": "Legacy settlement batch uses static key",
+    "status": "approved",
+    "path": "exceptions/EXC-2026-001.md",
+    "summary": "Time-bound waiver of SEC-IAM-001.R1 for the legacy settlement batch until migration to workload identity (expires 2027-03-31).",
+    "applies_to": {
+      "components": [
+        "batch"
+      ],
+      "data_types": [
+        "pci"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "waives": [
+        "SEC-IAM-001.R1"
+      ]
+    },
+    "est_tokens": 56
+  },
+  {
+    "id": "GR-001",
+    "type": "guardrail",
+    "title": "No long-lived IAM user access keys for workloads",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-001",
+    "summary": "No long-lived IAM user access keys for workloads (enforces SEC-IAM-001.R1, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 53
+  },
+  {
+    "id": "GR-002",
+    "type": "guardrail",
+    "title": "No wildcard action on wildcard resource",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-002",
+    "summary": "No wildcard action on wildcard resource (enforces SEC-IAM-001.R3, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 55
+  },
+  {
+    "id": "GR-003",
+    "type": "guardrail",
+    "title": "Prod admin roles only assumable via PAM broker",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-003",
+    "summary": "Prod admin roles only assumable via PAM broker (enforces SEC-IAM-002.R3, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 47
+  },
+  {
+    "id": "GR-004",
+    "type": "guardrail",
+    "title": "Load balancers/listeners enforce TLS 1.2+",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-004",
+    "summary": "Load balancers/listeners enforce TLS 1.2+ (enforces SEC-DATA-001.R1, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 55
+  },
+  {
+    "id": "GR-005",
+    "type": "guardrail",
+    "title": "Storage and databases encrypted at rest",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-005",
+    "summary": "Storage and databases encrypted at rest (enforces SEC-DATA-001.R2, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 60
+  },
+  {
+    "id": "GR-006",
+    "type": "guardrail",
+    "title": "Public endpoints must be associated with WAF",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-006",
+    "summary": "Public endpoints must be associated with WAF (enforces SEC-NET-001.R1, detective)",
+    "applies_to": {
+      "exposure": [
+        "internet-facing",
+        "partner"
+      ]
+    },
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 63
+  },
+  {
+    "id": "GR-007",
+    "type": "guardrail",
+    "title": "No public IPs on compute/data services",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-007",
+    "summary": "No public IPs on compute/data services (enforces SEC-NET-001.R2, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 56
+  },
+  {
+    "id": "GR-008",
+    "type": "guardrail",
+    "title": "Account enrolled in org audit log sink",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-008",
+    "summary": "Account enrolled in org audit log sink (enforces SEC-LOG-001.R1, detective)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 44
+  },
+  {
+    "id": "GR-009",
+    "type": "guardrail",
+    "title": "No secrets in IaC or images",
+    "status": "approved",
+    "path": "guardrails/guardrail-mapping.yaml#GR-009",
+    "summary": "No secrets in IaC or images (enforces SEC-SEC-001.R2, preventive)",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 45
+  },
+  {
+    "id": "PAT-DATA-001",
+    "type": "pattern",
+    "title": "Envelope Encryption with Enterprise KMS",
+    "status": "approved",
+    "path": "patterns/PAT-DATA-001-envelope-encryption-kms.md",
+    "summary": "Per-application CMKs in enterprise KMS, key policy scoped to workload identity, automatic rotation, separation of key admins from key users.",
+    "applies_to": {
+      "data_classification": [
+        "confidential"
+      ],
+      "integrations": [
+        "kms"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-DATA-001.R3",
+        "SEC-DATA-002.R3"
+      ]
+    },
+    "est_tokens": 100
+  },
+  {
+    "id": "PAT-IAM-001",
+    "type": "pattern",
+    "title": "OIDC Federation with Enterprise IdP",
+    "status": "approved",
+    "path": "patterns/PAT-IAM-001-oidc-enterprise-idp.md",
+    "summary": "Authorization Code + PKCE against the enterprise IdP; group-to-role mapping in IdP; tokens validated at gateway and service.",
+    "applies_to": {
+      "components": [
+        "web-app",
+        "mobile-app",
+        "api"
+      ],
+      "integrations": [
+        "enterprise-idp"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-IAM-002.R1",
+        "SEC-IAM-002.R2"
+      ]
+    },
+    "est_tokens": 146
+  },
+  {
+    "id": "PAT-IAM-002",
+    "type": "pattern",
+    "title": "Service-to-Service Authentication",
+    "status": "approved",
+    "path": "patterns/PAT-IAM-002-service-to-service-auth.md",
+    "summary": "Mesh mTLS (Kubernetes) or cloud-signed tokens (serverless) plus receiver-side authorisation policy.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-IAM-001.R1",
+        "SEC-IAM-001.R4"
+      ]
+    },
+    "est_tokens": 104
+  },
+  {
+    "id": "PAT-LOG-001",
+    "type": "pattern",
+    "title": "SIEM Log Forwarding",
+    "status": "approved",
+    "path": "patterns/PAT-LOG-001-siem-forwarding.md",
+    "summary": "Org-level audit log sinks to central log archive account; application security events via OTel collector to SIEM in the enterprise schema.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-LOG-001.R1",
+        "SEC-LOG-001.R3"
+      ]
+    },
+    "est_tokens": 91
+  },
+  {
+    "id": "PAT-NET-001",
+    "type": "pattern",
+    "title": "Enterprise Edge (WAF + DDoS + API Gateway)",
+    "status": "approved",
+    "path": "patterns/PAT-NET-001-enterprise-edge.md",
+    "summary": "Public DNS \u2192 CDN/DDoS \u2192 managed WAF (enterprise ruleset) \u2192 API gateway \u2192 private load balancer \u2192 workload.",
+    "applies_to": {
+      "exposure": [
+        "internet-facing",
+        "partner"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-NET-001.R1",
+        "SEC-NET-001.R3"
+      ]
+    },
+    "est_tokens": 89
+  },
+  {
+    "id": "PAT-SEC-001",
+    "type": "pattern",
+    "title": "Runtime Secrets Retrieval",
+    "status": "approved",
+    "path": "patterns/PAT-SEC-001-secrets-manager.md",
+    "summary": "Workload identity fetches secrets at runtime (CSI driver on Kubernetes, SDK/extension on serverless); rotation via managed rotation functions.",
+    "applies_to": {
+      "integrations": [
+        "secrets-manager"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "implements": [
+        "SEC-SEC-001.R1",
+        "SEC-SEC-001.R3"
+      ]
+    },
+    "est_tokens": 74
+  },
+  {
+    "id": "SEC-AI-001",
+    "type": "standard",
+    "title": "AI / LLM System Security",
+    "status": "draft",
+    "path": "standards/ai-ml/SEC-AI-001-ai-system-security.md",
+    "summary": "LLM/ML systems: approved model providers only, prompt-injection defences, tool/agent permissions least-privileged, and no restricted data to external models.",
+    "applies_to": {
+      "components": [
+        "ai-ml"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-AI-001.R1",
+        "SEC-AI-001.R2",
+        "SEC-AI-001.R3",
+        "SEC-AI-001.R4"
+      ],
+      "controls": [
+        "CTL-NIST-AI-RMF-MAP-1",
+        "CTL-ISO-42001-A.6"
+      ]
+    },
+    "est_tokens": 157
+  },
+  {
+    "id": "SEC-DATA-001",
+    "type": "standard",
+    "title": "Encryption in Transit and at Rest",
+    "status": "approved",
+    "path": "standards/data-protection/SEC-DATA-001-encryption.md",
+    "summary": "TLS 1.2+ everywhere; all storage encrypted at rest; confidential+ uses enterprise CMKs.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-DATA-001.R1",
+        "SEC-DATA-001.R2",
+        "SEC-DATA-001.R3"
+      ],
+      "controls": [
+        "CTL-NIST-SC-8",
+        "CTL-NIST-SC-28",
+        "CTL-ISO-A.8.24"
+      ],
+      "patterns": [
+        "PAT-DATA-001"
+      ],
+      "guardrails": [
+        "GR-004",
+        "GR-005"
+      ]
+    },
+    "est_tokens": 115
+  },
+  {
+    "id": "SEC-DATA-002",
+    "type": "standard",
+    "title": "Handling Restricted and Regulated Data (PII / PCI / PHI)",
+    "status": "approved",
+    "path": "standards/data-protection/SEC-DATA-002-sensitive-data.md",
+    "summary": "Confidential+ data needs data-flow mapping, minimisation, tokenisation for PCI, field-level protection for restricted data and no sensitive data in logs.",
+    "applies_to": {
+      "data_classification": [
+        "confidential"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-DATA-002.R1",
+        "SEC-DATA-002.R2",
+        "SEC-DATA-002.R3",
+        "SEC-DATA-002.R4"
+      ],
+      "controls": [
+        "CTL-NIST-SC-28",
+        "CTL-PCI-3.5",
+        "CTL-ISO-A.8.11"
+      ],
+      "patterns": [
+        "PAT-DATA-001"
+      ],
+      "guardrails": [
+        "GR-005"
+      ]
+    },
+    "est_tokens": 172
+  },
+  {
+    "id": "SEC-IAM-001",
+    "type": "standard",
+    "title": "Workload Identity and Service Authentication",
+    "status": "approved",
+    "path": "standards/identity-access/SEC-IAM-001-workload-identity.md",
+    "summary": "Workloads authenticate with platform-issued, short-lived identities (no static keys), are scoped per service, and authorise every call.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-IAM-001.R1",
+        "SEC-IAM-001.R2",
+        "SEC-IAM-001.R3",
+        "SEC-IAM-001.R4"
+      ],
+      "controls": [
+        "CTL-NIST-IA-9",
+        "CTL-NIST-AC-6",
+        "CTL-ISO-A.5.16"
+      ],
+      "patterns": [
+        "PAT-IAM-002"
+      ],
+      "guardrails": [
+        "GR-001",
+        "GR-002"
+      ]
+    },
+    "est_tokens": 210
+  },
+  {
+    "id": "SEC-IAM-002",
+    "type": "standard",
+    "title": "Human Access, SSO and Privileged Access",
+    "status": "approved",
+    "path": "standards/identity-access/SEC-IAM-002-human-access.md",
+    "summary": "All human access via enterprise IdP (OIDC/SAML) with phishing-resistant MFA; admin/production access via PAM with just-in-time elevation.",
+    "applies_to": {
+      "components": [
+        "web-app",
+        "mobile-app",
+        "api"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-IAM-002.R1",
+        "SEC-IAM-002.R2",
+        "SEC-IAM-002.R3"
+      ],
+      "controls": [
+        "CTL-NIST-IA-2",
+        "CTL-NIST-AC-2",
+        "CTL-ISO-A.8.2"
+      ],
+      "patterns": [
+        "PAT-IAM-001"
+      ],
+      "guardrails": [
+        "GR-003"
+      ]
+    },
+    "est_tokens": 132
+  },
+  {
+    "id": "SEC-LOG-001",
+    "type": "standard",
+    "title": "Security Logging and SIEM Integration",
+    "status": "approved",
+    "path": "standards/logging-monitoring/SEC-LOG-001-security-logging.md",
+    "summary": "Platform audit logs and application security events forwarded to SIEM in the standard schema, retained 1 year, with detections agreed with SecOps.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-LOG-001.R1",
+        "SEC-LOG-001.R2",
+        "SEC-LOG-001.R3"
+      ],
+      "controls": [
+        "CTL-NIST-AU-2",
+        "CTL-NIST-AU-6",
+        "CTL-ISO-A.8.15"
+      ],
+      "patterns": [
+        "PAT-LOG-001"
+      ],
+      "guardrails": [
+        "GR-008"
+      ]
+    },
+    "est_tokens": 128
+  },
+  {
+    "id": "SEC-NET-001",
+    "type": "standard",
+    "title": "Internet-Facing Services",
+    "status": "approved",
+    "path": "standards/network/SEC-NET-001-internet-exposure.md",
+    "summary": "Internet/partner-exposed endpoints sit behind the enterprise edge (WAF + DDoS + API gateway), never expose compute or data stores directly, and are rate-limited.",
+    "applies_to": {
+      "exposure": [
+        "internet-facing",
+        "partner"
+      ]
+    },
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-NET-001.R1",
+        "SEC-NET-001.R2",
+        "SEC-NET-001.R3",
+        "SEC-NET-001.R4"
+      ],
+      "controls": [
+        "CTL-NIST-SC-7",
+        "CTL-NIST-SI-4",
+        "CTL-ISO-A.8.20"
+      ],
+      "patterns": [
+        "PAT-NET-001"
+      ],
+      "guardrails": [
+        "GR-006",
+        "GR-007"
+      ]
+    },
+    "est_tokens": 150
+  },
+  {
+    "id": "SEC-SEC-001",
+    "type": "standard",
+    "title": "Secrets Management",
+    "status": "approved",
+    "path": "standards/secrets/SEC-SEC-001-secrets-management.md",
+    "summary": "Secrets only in the enterprise secrets manager, fetched at runtime, rotated automatically; none in code, images or IaC state.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {
+      "requirements": [
+        "SEC-SEC-001.R1",
+        "SEC-SEC-001.R2",
+        "SEC-SEC-001.R3"
+      ],
+      "controls": [
+        "CTL-NIST-IA-5",
+        "CTL-ISO-A.5.17"
+      ],
+      "patterns": [
+        "PAT-SEC-001"
+      ],
+      "guardrails": [
+        "GR-009"
+      ]
+    },
+    "est_tokens": 129
+  },
+  {
+    "id": "STRAT-001",
+    "type": "strategy",
+    "title": "Enterprise Security Architecture Strategy 2026\u20132028",
+    "status": "approved",
+    "path": "strategy/STRAT-001-security-strategy.md",
+    "summary": "Three-year direction: identity as the perimeter, controls-as-code aligned to the AaC programme, central SIEM/detection coverage, and secure AI adoption.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 172
+  },
+  {
+    "id": "STRAT-002",
+    "type": "strategy",
+    "title": "Security Capability Roadmap",
+    "status": "approved",
+    "path": "strategy/roadmap.yaml",
+    "summary": "Machine-readable maturity/progression per strategic theme; agents use it to know which capabilities are available now vs planned.",
+    "applies_to": {},
+    "load_always": false,
+    "refs": {},
+    "est_tokens": 212
+  }
+]

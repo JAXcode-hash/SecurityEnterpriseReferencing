@@ -1,0 +1,13 @@
+# Contrast example: a low-risk internal tool gets far less context.
+name: internal-reporting
+owner: finance-analytics
+status: draft
+review_tier: T1
+profile:
+  cloud: [azure]
+  hosting: [paas]
+  exposure: [internal]
+  data_classification: internal
+  data_types: []
+  components: [web-app, database]
+  integrations: [enterprise-idp, siem]

@@ -1,0 +1,19 @@
+# Design profile: the ONLY input the resolver needs.
+# Copy this into the design folder (in this repo, or in the application repo
+# next to its Architecture-as-Code), then fill in values from taxonomy/tags.yaml.
+name: <system-name>
+owner: <team>
+status: draft            # draft | in-review | approved
+review_tier: T2          # T1 | T2 | T3 (see architecture-reviews/process.md)
+profile:
+  cloud: [aws]
+  hosting: [kubernetes]
+  exposure: [internal]
+  data_classification: internal
+  data_types: []
+  components: [api, database]
+  integrations: [enterprise-idp, siem, kms, secrets-manager]
+# Optional: pull in specific documents even if tags would not match,
+# or exclude ones that the design authority has agreed are not relevant.
+include: []
+exclude: []

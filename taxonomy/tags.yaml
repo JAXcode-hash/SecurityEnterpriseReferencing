@@ -1,0 +1,33 @@
+# Controlled vocabulary. Every `applies_to` value in a document and every value
+# in a design-profile.yaml MUST come from here (enforced by tools/validate.py).
+#
+# Matching rule (tools/resolve_context.py):
+#   - A facet a document does NOT declare = no constraint on that facet.
+#   - A facet a document DOES declare must overlap with the design profile.
+#   - `data_classification` is ordinal: a document tagged `confidential`
+#     applies to designs classified confidential OR higher.
+facets:
+  cloud:
+    values: [aws, azure, gcp, on-prem]
+  hosting:
+    values: [kubernetes, serverless, vm, paas, saas]
+  exposure:
+    values: [internet-facing, partner, internal]
+  data_classification:
+    ordinal: true
+    values: [public, internal, confidential, restricted]   # low -> high
+  data_types:
+    values: [pii, pci, phi, credentials, model-training-data]
+  components:
+    values: [api, web-app, mobile-app, database, object-storage, message-queue, batch, ai-ml, data-pipeline]
+  integrations:
+    values: [enterprise-idp, siem, kms, secrets-manager, waf, api-gateway, pam, edr, ci-cd]
+
+# Document types, and which ones each agent purpose should receive.
+doc_types: [core, strategy, standard, pattern, guardrail, checklist, review-record, exception, decision]
+
+purposes:
+  design:   [core, standard, pattern, guardrail, exception, decision]
+  review:   [core, standard, checklist, guardrail, exception, review-record]
+  strategy: [core, strategy, decision]
+  build:    [core, standard, pattern, guardrail]

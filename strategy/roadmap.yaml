@@ -1,0 +1,25 @@
+type: strategy
+id: STRAT-002
+title: Security Capability Roadmap
+summary: Machine-readable maturity/progression per strategic theme; agents use it to know which capabilities are available now vs planned.
+themes:
+  T1:
+    current_maturity: 3   # 1-5
+    target_maturity: 5
+    milestones:
+      - {name: Static key elimination in prod, due: 2027-03, status: in-progress}
+      - {name: SPIFFE mesh identity on all clusters, due: 2027-09, status: planned}
+  T2:
+    current_maturity: 2
+    target_maturity: 4
+    milestones:
+      - {name: Guardrail mapping for all approved standards, due: 2027-01, status: in-progress}
+  T3:
+    current_maturity: 3
+    target_maturity: 4
+    milestones: []
+  T4:
+    current_maturity: 1
+    target_maturity: 3
+    milestones:
+      - {name: SEC-AI-001 approved, due: 2027-02, status: in-progress}

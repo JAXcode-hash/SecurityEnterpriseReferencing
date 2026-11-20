@@ -1,0 +1,12 @@
+name: support-ai-assistant
+owner: customer-support-eng
+status: draft
+review_tier: T2
+profile:
+  cloud: [gcp]
+  hosting: [serverless]
+  exposure: [internal]
+  data_classification: confidential
+  data_types: [pii]
+  components: [api, ai-ml]
+  integrations: [enterprise-idp, siem, secrets-manager, kms]

@@ -1,0 +1,62 @@
+# Bridge between security requirements and the Architecture-as-Code /
+# policy-as-code rules owned by the CTO/CIO guardrail programme.
+# The security repo owns the *intent* (requirement IDs); the AaC repo owns the
+# *rule implementation*. Agents use this to say "this requirement is enforced
+# automatically by rule X" vs "this needs design-review evidence".
+type: guardrail
+id: GR-MAP
+guardrails:
+  - id: GR-001
+    requirement: SEC-IAM-001.R1
+    description: No long-lived IAM user access keys for workloads
+    enforcement: preventive
+    aac_rules: {checkov: [CKV_AWS_273], opa: [cloud.iam.no_static_keys]}
+    applies_to: {}
+  - id: GR-002
+    requirement: SEC-IAM-001.R3
+    description: No wildcard action on wildcard resource
+    enforcement: preventive
+    aac_rules: {checkov: [CKV_AWS_62, CKV_AWS_63], opa: [cloud.iam.no_admin_wildcard]}
+    applies_to: {}
+  - id: GR-003
+    requirement: SEC-IAM-002.R3
+    description: Prod admin roles only assumable via PAM broker
+    enforcement: preventive
+    aac_rules: {opa: [cloud.iam.prod_admin_via_pam]}
+    applies_to: {}
+  - id: GR-004
+    requirement: SEC-DATA-001.R1
+    description: Load balancers/listeners enforce TLS 1.2+
+    enforcement: preventive
+    aac_rules: {checkov: [CKV_AWS_103, CKV_AZURE_15], opa: [cloud.net.tls_min_1_2]}
+    applies_to: {}
+  - id: GR-005
+    requirement: SEC-DATA-001.R2
+    description: Storage and databases encrypted at rest
+    enforcement: preventive
+    aac_rules: {checkov: [CKV_AWS_16, CKV_AWS_19, CKV_AZURE_2], opa: [cloud.data.encryption_at_rest]}
+    applies_to: {}
+  - id: GR-006
+    requirement: SEC-NET-001.R1
+    description: Public endpoints must be associated with WAF
+    enforcement: detective
+    aac_rules: {checkov: [CKV2_AWS_28], opa: [cloud.net.public_requires_waf]}
+    applies_to: {exposure: [internet-facing, partner]}
+  - id: GR-007
+    requirement: SEC-NET-001.R2
+    description: No public IPs on compute/data services
+    enforcement: preventive
+    aac_rules: {checkov: [CKV_AWS_88, CKV_AWS_17], opa: [cloud.net.no_public_data_plane]}
+    applies_to: {}
+  - id: GR-008
+    requirement: SEC-LOG-001.R1
+    description: Account enrolled in org audit log sink
+    enforcement: detective
+    aac_rules: {opa: [cloud.log.org_sink_enrolled]}
+    applies_to: {}
+  - id: GR-009
+    requirement: SEC-SEC-001.R2
+    description: No secrets in IaC or images
+    enforcement: preventive
+    aac_rules: {gitleaks: [default], checkov: [CKV_SECRET_*]}
+    applies_to: {}
